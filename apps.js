@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var topics = ["Full Metal Alchemist", "Rick & Morty", "FLCL", "Final Fantasy", "Street Fighter", "Mortal Kombat", "Legend of Zelda", "Archer"];
+    var topics = ["Full Metal Alchemist", "Morty", "FLCL", "Final Fantasy", "Street Fighter", "Mortal Kombat", "Legend of Zelda", "Archer"];
     var limit = "&limit=10";
     
     var key = "&api_key=GTYjtGYuFiDKjDDhKlGnrG12FwmXz9OC";
@@ -7,6 +7,7 @@ $(document).ready(function() {
     var imageRunning = false;
     
     function displayInfo() {
+        $("#gifs-appear-here").empty();
         
         var topic = $(this).attr('data-name');
         var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topic + key + limit;
@@ -15,6 +16,7 @@ $(document).ready(function() {
             method: "GET"
         }).then(function(response) {
             console.log(response);
+            
 
             var results = response.data;
         
@@ -22,7 +24,7 @@ $(document).ready(function() {
          for (var i = 0; i < results.length; i++) {
             var topicDiv = $("<div>");
             
-            var p = $("<p>").text("Rating: " + results[i].rating);
+            var p = $("<p>").text("Rating: " + results[i].rating.toUpperCase());
             var topicImage = $("<img>");
             topicImage.attr("src", results[i].images.fixed_height_still.url);
             topicImage.attr("data-animate", results[i].images.fixed_height.url);
@@ -55,7 +57,7 @@ $(document).ready(function() {
           // Adding a data-attribute
           a.attr("data-name", topics[i]);
           // Providing the initial button text
-          a.text(topics[i]);
+          a.text(topics[i].toUpperCase());
           // Adding the button to the buttons-view div
           $("#buttons-view").append(a);
         }
@@ -64,6 +66,7 @@ $(document).ready(function() {
       // This function handles events where one button is clicked
       function addNew () {
         event.preventDefault();
+        $("#gifs-appear-here").empty();
         var input = $("#gif-input").val().trim();
         topics.push(input);
         console.log(input);
@@ -82,7 +85,7 @@ $(document).ready(function() {
          for (var i = 0; i < results.length; i++) {
             var topicDiv = $("<div>");
             
-            var p = $("<p>").text("Rating: " + results[i].rating);
+            var p = $("<p>").text("Rating: " + results[i].rating.toUpperCase());
             var topicImage = $("<img>");
             topicImage.attr("src", results[i].images.fixed_height_still.url);
             topicImage.attr("data-animate", results[i].images.fixed_height.url);
