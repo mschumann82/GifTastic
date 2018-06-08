@@ -3,6 +3,8 @@ $(document).ready(function() {
     var limit = "&limit=10";
     
     var key = "&api_key=GTYjtGYuFiDKjDDhKlGnrG12FwmXz9OC";
+
+    var imageRunning = false;
     
     function displayInfo() {
         
@@ -23,6 +25,9 @@ $(document).ready(function() {
             var p = $("<p>").text("Rating: " + results[i].rating);
             var topicImage = $("<img>");
             topicImage.attr("src", results[i].images.fixed_height_still.url);
+            topicImage.attr("data-animate", results[i].images.fixed_height.url);
+            topicImage.attr("data-still", results[i].images.fixed_height_still.url);
+            topicImage.attr("data-state", "still");
             topicDiv.append(p);
             topicDiv.append(topicImage);
             $("#gifs-appear-here").prepend(topicDiv);
@@ -71,6 +76,7 @@ $(document).ready(function() {
         }).then(function(response) {
             console.log(response);
             var results = response.data;
+            console.log(topics);
         
 
          for (var i = 0; i < results.length; i++) {
@@ -79,32 +85,38 @@ $(document).ready(function() {
             var p = $("<p>").text("Rating: " + results[i].rating);
             var topicImage = $("<img>");
             topicImage.attr("src", results[i].images.fixed_height_still.url);
+            topicImage.attr("data-animate", results[i].images.fixed_height.url);
+            topicImage.attr("data-still", results[i].images.fixed_height_still.url);
+            topicImage.attr("data-state", "still");
             topicDiv.append(p);
             topicDiv.append(topicImage);
             $("#gifs-appear-here").prepend(topicDiv);
+            
          }
         
       });
     }
-      //$("#add-gif").on("click", function(event) {
-       // event.preventDefault();
 
-        // This line grabs the input from the textbox
-       // var topic = $("#gif-input").val().trim();
+    function animate() {
+        var state = $(this).attr("data-state");
+			    
+        if (state == "still") {
+            $(this).attr("src", $(this).data("animate"));
+            $(this).attr("data-state", "animate");
+        } else {
+            $(this).attr("src", $(this).data("still"));
+            $(this).attr("data-state", "still");
+        }
+        console.log("animate");
+        
 
-        // The topic from the textbox is then added to our array
-       // topics.push(topic);
-        //console.log(topic);
+    }
+      
 
-        // Calling renderButtons which handles the processing of our topics array
-        //renderButtons();
-        //displayInfo();
-
-      //});
-
-      // Generic function for displaying the topic info.
+      
       $(document).on("click", ".topic", displayInfo);
       $(document).on("click", "#add-gif", addNew);
+      $(document).on("click", "img", animate);
 
       // Calling the renderButtons function to display the intial buttons
       renderButtons();
