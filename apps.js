@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var topics = ["D & D", "Magic the Gathering", "FLCL", "Final Fantasy", "Street Fighter", "Mortal Kombat", "Legend of Zelda"];
+    var topics = ["Full Metal Alchemist", "Rick & Morty", "FLCL", "Final Fantasy", "Street Fighter", "Mortal Kombat", "Legend of Zelda", "Archer"];
     var limit = "&limit=10";
     
     var key = "&api_key=GTYjtGYuFiDKjDDhKlGnrG12FwmXz9OC";
@@ -13,6 +13,20 @@ $(document).ready(function() {
             method: "GET"
         }).then(function(response) {
             console.log(response);
+
+            var results = response.data;
+        
+
+         for (var i = 0; i < results.length; i++) {
+            var topicDiv = $("<div>");
+            
+            var p = $("<p>").text("Rating: " + results[i].rating);
+            var topicImage = $("<img>");
+            topicImage.attr("src", results[i].images.fixed_height_still.url);
+            topicDiv.append(p);
+            topicDiv.append(topicImage);
+            $("#gifs-appear-here").prepend(topicDiv);
+         }
         
       
     });
@@ -43,23 +57,54 @@ $(document).ready(function() {
       }
 
       // This function handles events where one button is clicked
-      $("#add-gif").on("click", function(event) {
+      function addNew () {
         event.preventDefault();
+        var input = $("#gif-input").val().trim();
+        topics.push(input);
+        console.log(input);
+        renderButtons();
+        
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + input + key + limit;
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function(response) {
+            console.log(response);
+            var results = response.data;
+        
+
+         for (var i = 0; i < results.length; i++) {
+            var topicDiv = $("<div>");
+            
+            var p = $("<p>").text("Rating: " + results[i].rating);
+            var topicImage = $("<img>");
+            topicImage.attr("src", results[i].images.fixed_height_still.url);
+            topicDiv.append(p);
+            topicDiv.append(topicImage);
+            $("#gifs-appear-here").prepend(topicDiv);
+         }
+        
+      });
+    }
+      //$("#add-gif").on("click", function(event) {
+       // event.preventDefault();
 
         // This line grabs the input from the textbox
-        var topic = $("#gif-input").val().trim();
+       // var topic = $("#gif-input").val().trim();
 
         // The topic from the textbox is then added to our array
-        topics.push(topic);
-        console.log(topic);
+       // topics.push(topic);
+        //console.log(topic);
 
         // Calling renderButtons which handles the processing of our topics array
-        renderButtons();
+        //renderButtons();
+        //displayInfo();
 
-      });
+      //});
 
       // Generic function for displaying the topic info.
       $(document).on("click", ".topic", displayInfo);
+      $(document).on("click", "#add-gif", addNew);
 
       // Calling the renderButtons function to display the intial buttons
       renderButtons();
