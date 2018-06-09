@@ -4,7 +4,6 @@ $(document).ready(function() {
     
     var key = "&api_key=GTYjtGYuFiDKjDDhKlGnrG12FwmXz9OC";
 
-    var imageRunning = false;
     
     function displayInfo() {
         $("#gifs-appear-here").empty();
@@ -30,8 +29,9 @@ $(document).ready(function() {
             topicImage.attr("data-animate", results[i].images.fixed_height.url);
             topicImage.attr("data-still", results[i].images.fixed_height_still.url);
             topicImage.attr("data-state", "still");
-            topicDiv.append(p);
+            
             topicDiv.append(topicImage);
+            topicDiv.append(p);
             $("#gifs-appear-here").prepend(topicDiv);
          }
         
@@ -91,8 +91,9 @@ $(document).ready(function() {
             topicImage.attr("data-animate", results[i].images.fixed_height.url);
             topicImage.attr("data-still", results[i].images.fixed_height_still.url);
             topicImage.attr("data-state", "still");
-            topicDiv.append(p);
+            
             topicDiv.append(topicImage);
+            topicDiv.append(p);
             $("#gifs-appear-here").prepend(topicDiv);
             
          }
