@@ -65,9 +65,11 @@ $(document).ready(function() {
 
       // This function handles events where one button is clicked
       function addNew () {
+
         event.preventDefault();
         $("#gifs-appear-here").empty();
         var input = $("#gif-input").val().trim();
+        if (input != "") {
         topics.push(input);
         console.log(input);
         renderButtons();
@@ -99,6 +101,7 @@ $(document).ready(function() {
          }
         
       });
+    }
     }
 
     function animate() {
