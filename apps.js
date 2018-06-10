@@ -69,9 +69,16 @@ $(document).ready(function() {
         event.preventDefault();
         $("#gifs-appear-here").empty();
         var input = $("#gif-input").val().trim();
-        if (input != "") {
-        topics.push(input);
-        console.log(input);
+        if (input != "") { // stops blank items being added as buttons.
+
+            for (j = 0; j < topics.length; j++) { // stops duplicate items from being pushed to array.
+                if (topics.indexOf(input) === -1) {
+                    topics.push(input);
+                    console.log(input);
+                    break;
+                }
+            }
+
         renderButtons();
         
         var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + input + key + limit;
@@ -104,7 +111,7 @@ $(document).ready(function() {
     }
     }
 
-    function animate() {
+    function animate() { //function that changes attributes of images.
         var state = $(this).attr("data-state");
 			    
         if (state == "still") {

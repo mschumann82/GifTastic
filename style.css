@@ -1,1 +1,28 @@
+button {
+    margin: 2px;
+    color: white;
+    background-color: navy;
+}
 
+#add-gif {
+    margin: 2px;
+    color: white;
+    background-color: navy;
+}
+
+#gif-input {
+    border: solid;
+    color: navy;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    float: right;
+}
+
+body {
+    background: #dddddd;
+}
