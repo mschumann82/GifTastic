@@ -9,7 +9,7 @@ $(document).ready(function() {
         $("#gifs-appear-here").empty();
         
         var topic = $(this).attr('data-name');
-        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topic + key + limit;
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + key + limit;
         $.ajax({
             url: queryURL,
             method: "GET"
